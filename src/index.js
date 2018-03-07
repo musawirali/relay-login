@@ -49,7 +49,7 @@ app.get('/', (req, resp) => {
  * Add GraphQL endpoint.
  * NOTE: The graphiql interface is enabled for debugging, but is not needed.
  */
-app.use('/graphql', graphqlHTTP({ getSchema(), graphiql: true }));
+app.use('/graphql', graphqlHTTP({ schema: getSchema(), graphiql: true }));
 
 /**
  * Start the server.
