@@ -1,0 +1,36 @@
+{
+  "name": "relay-login",
+  "description": "Simple login example with Relay Modern",
+  "author": {
+    "name": "Musawir Shah",
+    "email": "musawir@gmail.com"
+  },
+  "license": "UNLICENSED",
+  "scripts": {
+    "build_server": "babel src -d lib --ignore src/client",
+    "build_client": "webpack --config webpack.client.conf.babel.js",
+    "gen_schema": "node lib/server/graphql/gen_schema.js",
+    "relay": "relay-compiler --src ./src/client --schema ./lib/server/graphql/schema.graphql --extensions jsx",
+    "build": "yarn run build_server && yarn run gen_schema && yarn run relay && yarn run build_client",
+    "start": "node lib/index"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-relay": "^1.5.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "relay-compiler": "^1.5.0",
+    "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.12",
+    "express-session": "^1.15.6",
+    "graphql": "^0.13.1",
+    "graphql-relay": "^0.5.4",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-relay": "^1.5.0"
+  }
+}
