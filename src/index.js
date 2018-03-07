@@ -1,16 +1,17 @@
 import express from 'express';
 import session from 'express-session';
 import graphqlHTTP from 'express-graphql';
-
 import getSchema from './server/graphql';
 
-// Create GraphQL schema
-const schema = getSchema();
-
-// Create the express app
+/**
+ * Create express instance.
+ */
 const app = express();
 
-// Add (in-memory) session middleware
+/**
+ * Add (in-memory) session middleware.
+ * NOTE: In-memory session store is not recommended, this is only for demonstration.
+ */
 app.use(session({
   name: 'mysession',
   secret: 'MYSECRET',
@@ -18,10 +19,15 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-// Serve static assets (we build the client JS into this directory)
+/**
+ * Specify static assets directory.
+ * We build the client JS into this directory.
+ */
 app.use(express.static('static'));
 
-// GET root request handler
+/**
+ * Request handler to serve our web page.
+ */
 app.get('/', (req, resp) => {
   // We'll send this static HTML that simply loads the client-side JS.
   const html = `
@@ -39,7 +45,13 @@ app.get('/', (req, resp) => {
   resp.send(html);
 });
 
-// GraphQL end point
-app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
+/**
+ * Add GraphQL endpoint.
+ * NOTE: The graphiql interface is enabled for debugging, but is not needed.
+ */
+app.use('/graphql', graphqlHTTP({ getSchema(), graphiql: true }));
 
+/**
+ * Start the server.
+ */
 app.listen('4000', () => console.log('Server started: http://localhost:4000'));

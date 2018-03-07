@@ -8,6 +8,11 @@ import {
 let user = null;
 export default () => {
   if (!user) {
+
+    /**
+     * GraphQL type 'User'
+     * We just have the `id` and `name` fields for this example.
+     */
     user = new GraphQLObjectType({
       name: 'User',
       description: 'User details',

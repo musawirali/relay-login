@@ -7,7 +7,7 @@ import { clearSessionUser } from '../../session';
 import getViewerType from '../types/viewer';
 
 /**
- * This mutation clears the session and logs the user out.
+ * This mutation clears the session, hence logging the user out.
  */
 const config = {
   name: 'Logout',
@@ -19,7 +19,9 @@ const config = {
     },
   }),
   mutateAndGetPayload: (args, req) => {
+    // Clear session
     clearSessionUser(req);
+    // Return updated viewer
     return { viewer: { user: null }};
   },
 };
